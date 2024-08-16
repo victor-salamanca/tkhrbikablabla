@@ -1,5 +1,6 @@
 const TelegramBot = require('node-telegram-bot-api');
 const cheerio = require('cheerio');
+const http = require('http');
 
 const token = '6890355099:AAFLjvf_8dOeM49Yd_atGRsyrlE5deIwPnw'; // Replace with your own bot token
 const bot = new TelegramBot(token, { polling: true });
@@ -151,4 +152,12 @@ bot.on('message', async (msg) => {
             bot.sendMessage(chatId, 'You are not currently waiting for a captcha.');
         }
     }
+});
+
+const PORT = process.env.PORT || 3000;
+http.createServer((req, res) => {
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('Server is running');
+}).listen(PORT, () => {
+    console.log(`Server is listening on port ${PORT}`);
 });
