@@ -1,8 +1,10 @@
 const TelegramBot = require('node-telegram-bot-api');
 const cheerio = require('cheerio');
 const http = require('http');
+require('dotenv').config();
 
-const token = '6890355099:AAFLjvf_8dOeM49Yd_atGRsyrlE5deIwPnw'; // Replace with your own bot token
+
+const token = process.env.TELEGRAM_TOKEN; 
 const bot = new TelegramBot(token, { polling: true });
 
 let waitingForCaptcha = false; // Boolean to track if we're waiting for captcha
@@ -23,7 +25,7 @@ async function get_page_html() {
                 "sec-fetch-site": "same-origin",
                 "sec-fetch-user": "?1",
                 "upgrade-insecure-requests": "1",
-                "cookie": "login_state=RR0RPFIMFB6NNIGFG1F9PJK; csrftoken=HBX88n8NSmL19Inu85CUdO8eV92ElUKH; sessionid=tyyjl16gickf0f25ki9x7ahltfq8xnu1",
+                "cookie": `login_state=${process.env.LOGIN_STATE}; csrftoken=${process.env.CSRFTOKEN}; sessionid=${process.env.SESSIONID}`,
                 "Referer": "https://bus-med.1337.ma/",
                 "Referrer-Policy": "same-origin"
             },
@@ -50,7 +52,7 @@ async function reserv_taxista(capValue, capCode, place) {
             "sec-fetch-site": "same-origin",
             "sec-fetch-user": "?1",
             "upgrade-insecure-requests": "1",
-            "cookie": "login_state=RR0RPFIMFB6NNIGFG1F9PJK; csrftoken=HBX88n8NSmL19Inu85CUdO8eV92ElUKH; sessionid=tyyjl16gickf0f25ki9x7ahltfq8xnu1",
+            "cookie": `login_state=${process.env.LOGIN_STATE}; csrftoken=${process.env.CSRFTOKEN}; sessionid=${process.env.SESSIONID}`,
             "Referer": "https://bus-med.1337.ma/",
             "Referrer-Policy": "same-origin"
         },
